@@ -13,7 +13,6 @@ public abstract class VirtualPet {
 	abstract void tick();
 
 	public void play() {
-		health++;
 		mood++;
 	}
 

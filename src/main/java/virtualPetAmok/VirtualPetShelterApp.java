@@ -6,35 +6,18 @@ import java.util.Scanner;
 public class VirtualPetShelterApp {
 	public static void main(String[] args) {
 
-		VirtualPet creature1 = new VirtualPet("Stubby", "Still Knockin the Hard Knock Life");
-		VirtualPet creature2 = new VirtualPet("Talky", "Silent Espionage Tactician");
-		VirtualPet creature3 = new VirtualPet("Mutey", "Sophisticate Mutate");
-		VirtualPet creature4 = new VirtualPet("Derelicty", "Trash Town Transient");
-		VirtualPet creature5 = new VirtualPet("Filth", "The Upper Crust");
+		OrganicCat creature1 = new OrganicCat("Phil", "Organic Cat");
+		OrganicDog creature2 = new OrganicDog("Bill", "Organic Dog");
+		RobotCat creature3 = new RobotCat("Robo Phil", "Robot Cat");
+		RobotDog creature4 = new RobotDog("Robo Bill", "Robot Dog");
 
 		VirtualPetShelter shelter = new VirtualPetShelter();
 		shelter.addCreature(creature1);
 		shelter.addCreature(creature2);
 		shelter.addCreature(creature3);
 		shelter.addCreature(creature4);
-		shelter.addCreature(creature5);
 
 		Scanner input = new Scanner(System.in);
-
-		System.out.println("Welcome to Catty Cat's Dog House.");
-		System.out.println(
-				"Here at Catty Cat's Dog House we'll turn the cat or dog of your dreams into the dog or cat or your dreams!");
-		System.out.println(
-				"Through use of our patented \'Cog Powder\' we'll turn little Fido into princess Shiba!  Come to our playpens and see it in action!\n(Press any to enter)");
-		input.nextLine();
-		System.out.println("Just look at those adorable little guys! They're mearking for your attention!");
-		System.out.println("Feel free to love, play, or sprinkle them at any time!");
-		System.out.println(
-				"Should you find that special someone in our playpens, that special someone is all yours! For Free!");
-		System.out.println(
-				"And should you want to transmorph that special someone at home, just leave them with us. We'll have your cat barking in no time!");
-		System.out.println("I'll leave you and little ones alone for now. Enjoy!\n(Press any key to continue)");
-		input.nextLine();
 
 		while (true) {
 

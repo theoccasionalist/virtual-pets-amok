@@ -9,6 +9,7 @@ public class RobotCat extends VirtualPet {
 	public RobotCat(String name, String description) {
 		this.name = name;
 		this.description = description;
+		health = (lube - rust) + mood;
 	}
 
 	public RobotCat(String name, String description, int mood, int lube, int rust) {
@@ -17,7 +18,7 @@ public class RobotCat extends VirtualPet {
 		this.mood = mood;
 		this.lube = lube;
 		this.rust = rust;
-
+		this.health = (this.lube - this.rust) + this.mood;
 	}
 
 	public void oil() {

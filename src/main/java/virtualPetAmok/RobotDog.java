@@ -3,11 +3,11 @@ package virtualPetAmok;
 public class RobotDog extends RobotCat implements Dog {
 	public RobotDog(String name, String description) {
 		super(name, description);
+		health = (lube - rust) + mood;
 	}
 
 	public RobotDog(String name, String description, int mood, int lube, int rust) {
 		super(name, description, mood, lube, rust);
-
 	}
 
 	@Override

@@ -9,11 +9,11 @@ public class OrganicCat extends VirtualPet {
 	protected int pee = ThreadLocalRandom.current().nextInt(5, 11);
 	protected int poop = ThreadLocalRandom.current().nextInt(5, 11);
 	protected int thirst = ThreadLocalRandom.current().nextInt(5, 11);
-	protected int totalWaste;
 
 	public OrganicCat(String name, String description) {
 		this.name = name;
 		this.description = description;
+		health = fitness + mood;
 	}
 
 	public OrganicCat(String name, String description, int mood, int fitness, int hunger, int pee, int poop,
@@ -26,6 +26,7 @@ public class OrganicCat extends VirtualPet {
 		this.pee = pee;
 		this.poop = poop;
 		this.thirst = thirst;
+		this.health = this.fitness + this.mood;
 	}
 
 	public void drink() {
@@ -77,8 +78,6 @@ public class OrganicCat extends VirtualPet {
 			mood -= ThreadLocalRandom.current().nextInt(1, 4);
 			fitness++;
 		}
-
-		totalWaste = pee + poop;
 
 		hunger++;
 		pee++;

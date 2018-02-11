@@ -22,6 +22,22 @@ public class VirtualPetTest {
 	RobotDog pill = new RobotDog("Pill", "", 1, 1, 1);
 
 	@Test
+	public void shouldReturnOrganicHealth() {
+		int organicCatHealth = phil.getHealth();
+		int organicDogHealth = bill.getHealth();
+		assertEquals(organicCatHealth, 2);
+		assertEquals(organicDogHealth, 2);
+	}
+
+	@Test
+	public void shouldReturnRobotHealth() {
+		int robotCatHealth = dill.getHealth();
+		int robotDogHealth = pill.getHealth();
+		assertEquals(robotCatHealth, 1);
+		assertEquals(robotDogHealth, 1);
+	}
+
+	@Test
 	public void organicCatShouldDrink() {
 		phil.drink();
 		int drinkCheck = phil.getThirst();
@@ -82,6 +98,20 @@ public class VirtualPetTest {
 		int poopCheck = phil.getPoop();
 		assertEquals(hungerCheck, 2);
 		assertEquals(poopCheck, 0);
+	}
+
+	@Test
+	public void organicCatShouldPlay() {
+		phil.play();
+		int moodCheck = phil.getMood();
+		assertEquals(moodCheck, 2);
+	}
+
+	@Test
+	public void organicDogShouldPlay() {
+		bill.play();
+		int moodCheck = bill.getMood();
+		assertEquals(moodCheck, 2);
 	}
 
 	@Test
@@ -150,6 +180,20 @@ public class VirtualPetTest {
 	}
 
 	@Test
+	public void robotCatShouldPlay() {
+		dill.play();
+		int moodCheck = dill.getMood();
+		assertEquals(moodCheck, 2);
+	}
+
+	@Test
+	public void robotDogShouldPlay() {
+		pill.play();
+		int moodCheck = pill.getMood();
+		assertEquals(moodCheck, 2);
+	}
+
+	@Test
 	public void shouldTickRobotCat() {
 		dill.tick();
 		int moodCheck = dill.getMood();
@@ -160,4 +204,14 @@ public class VirtualPetTest {
 		assertEquals(rustCheck, 2);
 	}
 
+	@Test
+	public void shouldTickRobotDog() {
+		pill.tick();
+		int moodCheck = pill.getMood();
+		int lubeCheck = pill.getLube();
+		int rustCheck = pill.getRust();
+		assertThat(moodCheck, is(allOf(greaterThan(-3), lessThan(5))));
+		assertEquals(lubeCheck, 0);
+		assertEquals(rustCheck, 2);
+	}
 }

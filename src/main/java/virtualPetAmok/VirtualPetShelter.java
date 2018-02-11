@@ -33,7 +33,7 @@ public class VirtualPetShelter {
 
 	public void feedOrganicCats() {
 		for (VirtualPet name : shelter.values()) {
-			if (name instanceof OrganicCat) {
+			if (name instanceof OrganicCat && !(name instanceof OrganicDog)) {
 				((OrganicCat) name).eat();
 			}
 		}
@@ -49,7 +49,7 @@ public class VirtualPetShelter {
 
 	public void oilRobotCats() {
 		for (VirtualPet name : shelter.values()) {
-			if (name instanceof RobotCat) {
+			if (name instanceof RobotCat && !(name instanceof RobotDog)) {
 				((RobotCat) name).oil();
 			}
 		}
@@ -73,12 +73,12 @@ public class VirtualPetShelter {
 
 	public void tickAllCreaturesPlusWaste() {
 		for (VirtualPet name : shelter.values()) {
-			name.tick();
-			if (name instanceof OrganicCat) {
+			if (name instanceof OrganicCat && !(name instanceof OrganicDog)) {
 				catLitter = ((OrganicCat) name).getPee() + ((OrganicCat) name).getPoop();
 			} else if (name instanceof OrganicDog) {
 				dogLitter = ((OrganicDog) name).getPee() + ((OrganicDog) name).getPoop();
 			}
+			name.tick();
 		}
 	}
 
@@ -88,6 +88,14 @@ public class VirtualPetShelter {
 
 	public void cleanDogLitterBox() {
 		dogLitter = 0;
+	}
+
+	public int getCatLitter() {
+		return catLitter;
+	}
+
+	public int getDogLitter() {
+		return dogLitter;
 	}
 
 	public boolean contains(String petName) {
