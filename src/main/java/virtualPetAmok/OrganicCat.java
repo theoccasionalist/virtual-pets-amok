@@ -13,7 +13,7 @@ public class OrganicCat extends VirtualPet {
 	public OrganicCat(String name, String description) {
 		this.name = name;
 		this.description = description;
-		health = fitness + mood;
+		health = (int) (((fitness * .5) + (mood * .5) + ((hunger * thirst) / 4) + ((pee * poop) / 4)));
 	}
 
 	public OrganicCat(String name, String description, int mood, int fitness, int hunger, int pee, int poop,
@@ -26,7 +26,8 @@ public class OrganicCat extends VirtualPet {
 		this.pee = pee;
 		this.poop = poop;
 		this.thirst = thirst;
-		this.health = this.fitness + this.mood;
+		this.health = (int) (((this.fitness * .5) + (this.mood * .3) + ((this.hunger * this.thirst) / 3)
+				+ ((this.pee * this.poop) / 4)));
 	}
 
 	public void drink() {
@@ -83,6 +84,12 @@ public class OrganicCat extends VirtualPet {
 		pee++;
 		poop++;
 		thirst++;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%-15s%-20s%-15s%-15s%-15s%-15s%-15s%-15s%-15s", name, description, fitness, hunger, mood,
+				pee, poop, thirst, health);
 	}
 
 }

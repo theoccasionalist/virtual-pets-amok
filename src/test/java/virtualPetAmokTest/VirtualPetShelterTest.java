@@ -81,6 +81,36 @@ public class VirtualPetShelterTest {
 	}
 
 	@Test
+	public void shouldWaterOrganicCatsNotDogs() {
+		testShelter.addCreature(phil);
+		testShelter.addCreature(bill);
+		testShelter.waterOrganicCats();
+		int CatThirstCheck = phil.getThirst();
+		int DogThirstCheck = bill.getThirst();
+		int CatPeeCheck = phil.getPee();
+		int DogPeeCheck = bill.getPee();
+		assertEquals(CatThirstCheck, 0);
+		assertEquals(DogThirstCheck, 1);
+		assertEquals(CatPeeCheck, 2);
+		assertEquals(DogPeeCheck, 1);
+	}
+
+	@Test
+	public void shouldWaterOrganicDogsNotCats() {
+		testShelter.addCreature(phil);
+		testShelter.addCreature(bill);
+		testShelter.waterOrganicDogs();
+		int CatThirstCheck = phil.getThirst();
+		int DogThirstCheck = bill.getThirst();
+		int CatPeeCheck = phil.getPee();
+		int DogPeeCheck = bill.getPee();
+		assertEquals(CatThirstCheck, 1);
+		assertEquals(DogThirstCheck, 0);
+		assertEquals(CatPeeCheck, 1);
+		assertEquals(DogPeeCheck, 2);
+	}
+
+	@Test
 	public void shouldOilRobotCatsNotDogs() {
 		testShelter.addCreature(dill);
 		testShelter.addCreature(pill);
@@ -110,13 +140,44 @@ public class VirtualPetShelterTest {
 		assertEquals(dogRustCheck, 0);
 	}
 
+	public void shouldWalkAllDogs() {
+		testShelter.addCreature(bill);
+		testShelter.addCreature(pill);
+		int organicDogMoodCheck = bill.getMood();
+		int organicDogFitnessCheck = bill.getFitness();
+		int organicDogHungerCheck = bill.getHunger();
+		int organicDogThirstCheck = bill.getThirst();
+		int organicDogPeeCheck = bill.getPee();
+		int organicDogPoopCheck = bill.getPoop();
+		int robotDogMoodCheck = pill.getMood();
+		int robotDogRustCheck = pill.getRust();
+		assertEquals(organicDogMoodCheck, 2);
+		assertEquals(organicDogFitnessCheck, 2);
+		assertEquals(organicDogHungerCheck, 2);
+		assertEquals(organicDogThirstCheck, 2);
+		assertEquals(organicDogPeeCheck, 0);
+		assertEquals(organicDogPoopCheck, 0);
+		assertEquals(robotDogMoodCheck, 2);
+		assertEquals(robotDogRustCheck, 2);
+	}
+
 	@Test
-	public void shouldTickAllAndAddWaste() {
+	public void shouldAddWaste() {
+		testShelter.addCreature(phil);
+		testShelter.addCreature(bill);
+		int catLitterCheck = testShelter.getCatLitter();
+		int dogLitterCheck = testShelter.getDogLitter();
+		assertEquals(catLitterCheck, 0);
+		assertEquals(dogLitterCheck, 0);
+	}
+
+	@Test
+	public void shouldTickAllCreatures() {
 		testShelter.addCreature(phil);
 		testShelter.addCreature(bill);
 		testShelter.addCreature(dill);
 		testShelter.addCreature(pill);
-		testShelter.tickAllCreaturesPlusWaste();
+		testShelter.tickAllCreatures();
 		int philMoodCheck = phil.getMood();
 		int philHungerCheck = phil.getHunger();
 		int philPeeCheck = phil.getPee();
@@ -133,8 +194,6 @@ public class VirtualPetShelterTest {
 		int pillMoodCheck = pill.getMood();
 		int pillLubeCheck = pill.getLube();
 		int pillRustCheck = pill.getRust();
-		int catLitterCheck = testShelter.getCatLitter();
-		int dogLitterCheck = testShelter.getDogLitter();
 		assertThat(philMoodCheck, is(allOf(greaterThan(-3), lessThan(5))));
 		assertEquals(philHungerCheck, 2);
 		assertEquals(philPeeCheck, 2);
@@ -151,7 +210,5 @@ public class VirtualPetShelterTest {
 		assertThat(pillMoodCheck, is(allOf(greaterThan(-3), lessThan(5))));
 		assertEquals(pillLubeCheck, 0);
 		assertEquals(pillRustCheck, 2);
-		assertEquals(catLitterCheck, 2);
-		assertEquals(dogLitterCheck, 2);
 	}
 }

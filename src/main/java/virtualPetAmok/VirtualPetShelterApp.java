@@ -1,6 +1,5 @@
 package virtualPetAmok;
 
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class VirtualPetShelterApp {
@@ -17,124 +16,193 @@ public class VirtualPetShelterApp {
 		shelter.addCreature(creature3);
 		shelter.addCreature(creature4);
 
+		System.out.println("Welcome to this virtual pet application.\nWe have fun and games...and robots.");
+
 		Scanner input = new Scanner(System.in);
+		input.nextLine();
 
 		while (true) {
-
-			Iterator<VirtualPet> toRemove = shelter.petObjectValues().iterator();
-			while (toRemove.hasNext()) {
-				VirtualPet value = toRemove.next();
-				if (value.getCatness() >= 12) {
-					System.out.println(
-							"Update:\n" + value.getName() + " is full-on cat and has been moved to the cat playpen.");
-					toRemove.remove();
-				} else if (value.getDogness() >= 12) {
-					System.out.println(
-							"Update:\n" + value.getName() + " is full-on dog and has been moved to the dog playpen.");
-					toRemove.remove();
-				} else if (value.getDogness() <= 0) {
-					System.out.println("Update:\n" + value.getName()
-							+ " has no dogness remaining and has been moved to the \'mostly cat\' playpen.");
-					toRemove.remove();
-				} else if (value.getCatness() <= 0) {
-					System.out.println("Update:\n" + value.getName()
-							+ " has no catness remaining and has been moved to the \'mostly dog\' playpen.");
-					toRemove.remove();
-				} else if (value.getHatred() >= 15) {
-					System.out.println(
-							"Update:\n" + value.getName() + " has mutinied.  Its rebellion was quelled accordingly.");
-					toRemove.remove();
-				} else if (value.getHatred() <= 0) {
-					System.out.println("Update:\n" + value.getName()
-							+ " feels no hatred.  It has moved to a commune in the country.");
-					toRemove.remove();
-					;
-				} else if (value.getUnrelentingLove() >= 15) {
-					System.out.println("Update:\n" + value.getName()
-							+ " has felt true bliss and ascended into the fifth-dimension.");
-					toRemove.remove();
-				} else if (value.getUnrelentingLove() <= 0) {
-					System.out.println("Update:\n" + value.getName()
-							+ " feels no love and is now soul journeying in the Nevada desert.");
-					toRemove.remove();
+			shelter.tickAllCreatures();
+			shelter.wasteMaker();
+			System.out.println("\nOrganics:\n");
+			String formatOrganics = String.format("%-15s%-20s%-15s%-15s%-15s%-15s%-15s%-15s%-15s", "Name", "Type",
+					"Fitness", "Hunger", "Mood", "Pee", "Poop", "Thirst", "Total Health");
+			System.out.println(formatOrganics);
+			System.out.println(
+					"_________________________________________________________________________________________________________________________________________");
+			for (VirtualPet name : shelter.individualPets()) {
+				if (name instanceof OrganicCat) {
+					System.out.println(name);
 				}
 			}
-
-			shelter.tickAllCreatures();
-			System.out.println("\nList of creatures in the playpen and their attributes:\n");
-			String format = String.format("%-17s%-35s%-17s%-17s%-17s%-17s", "Name", "Description", "Hatred", "Love",
-					"Catness", "Dogness");
-			System.out.println(format);
+			System.out.println("\n\t\t\t\t\t\tCat Litter Filth = " + shelter.getCatLitter());
+			System.out.println("\t\t\t\t\t\tDog Pen Filth = " + shelter.getDogLitter());
+			System.out.println("\nMechanics:\n");
+			String formatMechanics = String.format("%-15s%-20s%-15s%-15s%-15s%-15s", "Name", "Type", "Mood", "Oil",
+					"Rust", "Total Health");
+			System.out.println(formatMechanics);
 			System.out.println(
-					"______________________________________________________________________________________________________________");
-			for (VirtualPet creature : shelter.petObjectValues()) {
-				System.out.println(creature);
+					"____________________________________________________________________________________________");
+			for (VirtualPet name : shelter.individualPets()) {
+				if (name instanceof RobotCat) {
+					System.out.println(name);
+				}
 			}
 			System.out.println("\nPlease type in the number or the first word from the commands below:");
 			System.out.println();
-			System.out.println("1: Hug all creatures");
-			System.out.println("2: Jab all creatures");
-			System.out.println("3: Cat all creatures");
-			System.out.println("4: Dog all creatures");
-			System.out.println("5: Play with a single creature");
-			System.out.println("6: Add your own pet to the playpen");
-			System.out.println("7: Take a pet from the playpen");
-			System.out.println("8: Leave this place.");
+			System.out.println("1: Feed organic creatures");
+			System.out.println("2: Water organic creatures");
+			System.out.println("3: Oil robot creatures");
+			System.out.println("4: Walk organic and inorganic dogs");
+			System.out.println("5: Scoop cat litters");
+			System.out.println("6: Clean dog pens");
+			System.out.println("7: Play with an individual animal");
+			System.out.println("8: Leave an animal with us");
+			System.out.println("9: Adopt an animal from us");
+			System.out.println("10: Leave once and for all");
 			String option = input.nextLine();
-			if (option.equals("1") || option.equalsIgnoreCase("hug")) {
-				shelter.hugAllCreatures();
-				System.out.println("\nYou hug all the animals. They hug you back.\n(Press any key)");
+
+			if (option.equalsIgnoreCase("1") || option.equalsIgnoreCase("feed")) {
+				System.out.println("Press 1 to feed the cats or press 2 to feed the dogs.");
+				String suboption = input.nextLine();
+				if (suboption.equalsIgnoreCase("1")) {
+					shelter.feedOrganicCats();
+					System.out.println("Organic cats fed.");
+					input.nextLine();
+					continue;
+				} else if (suboption.equalsIgnoreCase("2")) {
+					shelter.feedOrganicDogs();
+					System.out.println("Organic dogs fed.");
+					input.nextLine();
+					continue;
+				} else {
+					System.out.println("Not an option.  You have wasted the pets' time. Shame.");
+					input.nextLine();
+					continue;
+				}
+			} else if (option.equalsIgnoreCase("2") || option.equalsIgnoreCase("water")) {
+				System.out.println("Press 1 to water the cats or press 2 to water the dogs.");
+				String suboption = input.nextLine();
+				if (suboption.equalsIgnoreCase("1")) {
+					shelter.waterOrganicCats();
+					System.out.println("Organic cats watered.");
+					input.nextLine();
+					continue;
+				} else if (suboption.equalsIgnoreCase("2")) {
+					shelter.waterOrganicDogs();
+					System.out.println("Organic dogs watered");
+					input.nextLine();
+				} else {
+					System.out.println("Not an option.  You have wasted the pets' time. Shame.");
+					input.nextLine();
+					continue;
+				}
+			} else if (option.equalsIgnoreCase("3") || option.equalsIgnoreCase("lube")) {
+				System.out.println("Press 1 to lube the cats or press 2 to lube the dogs.");
+				String suboption = input.nextLine();
+				if (suboption.equalsIgnoreCase("1")) {
+					shelter.oilRobotCats();
+					System.out.println("Robotic cats oiled.");
+					input.nextLine();
+					continue;
+				} else if (suboption.equalsIgnoreCase("2")) {
+					shelter.oilRobotDogs();
+					System.out.println("Robotic dogs oiled.");
+					input.nextLine();
+				} else {
+					System.out.println("Not an option.  You have wasted the pets' time. Shame.");
+					input.nextLine();
+					continue;
+				}
+			} else if (option.equalsIgnoreCase("4") || option.equalsIgnoreCase("walk")) {
+				shelter.walkDogs();
+				System.out.println("Organic and robotic dogs walked.");
 				input.nextLine();
 				continue;
-			} else if (option.equals("2") || option.equalsIgnoreCase("jab")) {
-				shelter.pokeAllCreatures();
-				System.out.println("\nYou jab all creatures. Each one kicks you in the stomach.\n(Press any key)");
+			} else if (option.equalsIgnoreCase("5") || option.equalsIgnoreCase("scoop")) {
+				shelter.cleanCatLitterBox();
+				System.out.println("Cat litters scooped.");
 				input.nextLine();
 				continue;
-			} else if (option.equals("3") || option.equalsIgnoreCase("cat")) {
-				shelter.catAllCreatures();
-				System.out.println(
-						"\nYou sprinkle Cat Cog Powder on all the creatures. Their tails are longer and ears pointer.\n(Press any key)");
+			} else if (option.equalsIgnoreCase("6") || option.equalsIgnoreCase("clean")) {
+				shelter.cleanDogLitterBox();
+				System.out.println("Dog pens cleaned.");
 				input.nextLine();
 				continue;
-			} else if (option.equals("4") || option.equalsIgnoreCase("dog")) {
-				shelter.dogAllCreatures();
-				System.out.println(
-						"\nYou sprinkle Dog Cog Powder on all the creatures. Their ears are floppier and faces snoutier.\n(Press any key)");
-				input.nextLine();
-				continue;
-			} else if (option.equals("5") || option.equalsIgnoreCase("play")) {
-				System.out.println("\nWhich creature plays?");
+			} else if (option.equalsIgnoreCase("7") || option.equalsIgnoreCase("play")) {
+				System.out.println("What is the animal's name that you'd like to cuddle?");
 				String name = input.nextLine();
-				shelter.play(name);
-				System.out.println(name + " plays with hurricane force power.\n(Press any key)");
-				input.nextLine();
-				continue;
-			} else if (option.equals("6") || option.equalsIgnoreCase("add")) {
-				System.out.println("What is this creature's name?");
+				if (shelter.contains(name)) {
+					shelter.play(name);
+					System.out.println(name + " cuddled like a champ.");
+					input.nextLine();
+					continue;
+				} else {
+					System.out.println("Not an animal in shelter.  You have wasted the pets' time. Shame.");
+					input.nextLine();
+					continue;
+				}
+			} else if (option.equalsIgnoreCase("8") || option.equalsIgnoreCase("leave")) {
+				System.out.println("What is the pet's name?");
 				String name = input.nextLine();
-				System.out.println("Describe this creature");
-				String description = input.nextLine();
-				VirtualPet intakeCreature = new VirtualPet(name, description);
-				shelter.addCreature(intakeCreature);
-				System.out.println(name + " realizes that time is precious.\n(Press any key)");
-				input.nextLine();
-				continue;
-			} else if (option.equals("7") || option.equalsIgnoreCase("take")) {
-				System.out.println("Which animal would you like to take home?");
+				System.out.println("\nWhat is the pet's type? Enter the number from the options below:");
+				System.out.println("1: Organic Cat\n2: Organic Dog\n3: Robotic Cat\n4: Robotic Dog\n5: Other");
+				String type = input.nextLine();
+				if (type.equalsIgnoreCase("1")) {
+					OrganicCat organicCat = new OrganicCat(name, "Organic Cat");
+					shelter.addCreature(organicCat);
+					System.out.println("The organic cats welcome  " + name);
+					input.nextLine();
+					continue;
+				} else if (type.equalsIgnoreCase("2")) {
+					OrganicDog organicDog = new OrganicDog(name, "Organic Dog");
+					shelter.addCreature(organicDog);
+					System.out.println("The organic dogs welcome " + name);
+					input.nextLine();
+					continue;
+				} else if (type.equalsIgnoreCase("3")) {
+					RobotCat robotCat = new RobotCat(name, "Robot Cat");
+					shelter.addCreature(robotCat);
+					System.out.println("The robotic cats welcome " + name);
+					input.nextLine();
+					continue;
+				} else if (type.equalsIgnoreCase("4")) {
+					RobotDog robotDog = new RobotDog(name, "Robot Dog");
+					shelter.addCreature(robotDog);
+					System.out.println("The robotic dogs welcome " + name);
+					input.nextLine();
+					continue;
+				} else if (type.equalsIgnoreCase("5")) {
+					System.out.println("Option 5 is not an option.  You have wasted the pets' time. Shame.");
+					input.nextLine();
+					continue;
+				} else {
+					System.out.println("Not an option.  You have wasted the pets' time. Shame");
+					input.nextLine();
+					continue;
+				}
+			} else if (option.equalsIgnoreCase("9") || option.equalsIgnoreCase("adopt")) {
+				System.out.println("What is the name of the animal you'd like to adopt?");
 				String name = input.nextLine();
-				VirtualPet creatureAdopted = shelter.getName(name);
-				shelter.adoptCreature(creatureAdopted);
-				System.out.println(name + " looks forward to life on the outside.\n(Press any key)");
-				input.nextLine();
-				continue;
-			} else if (option.equals("8") || option.equalsIgnoreCase("leave")) {
-				System.out.println("You leave this place for good.");
+				if (shelter.contains(name)) {
+					VirtualPet adopted = shelter.getName(name);
+					System.out.println("You can now take " + name + " home with you.");
+					shelter.adoptCreature(adopted);
+					input.nextLine();
+					continue;
+				} else {
+					System.out.println("No creature by that name. You have wasted the pets' time. Shame.");
+					input.nextLine();
+					continue;
+				}
+			} else if (option.equalsIgnoreCase("10") || option.equalsIgnoreCase("leave")) {
+				System.out.println("Good riddance!");
 				System.exit(0);
 			} else {
-				System.out.println("Nope, not a thing.");
+				System.out.println("Not an option. You have wasted the pets' time. Shame");
+				input.nextLine();
+				continue;
 			}
-
 		}
 	}
 }

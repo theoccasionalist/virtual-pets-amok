@@ -9,7 +9,7 @@ public class RobotCat extends VirtualPet {
 	public RobotCat(String name, String description) {
 		this.name = name;
 		this.description = description;
-		health = (lube - rust) + mood;
+		health = (int) (6 * (.5 * lube - .3 * rust) + 7 * (.5 * mood));
 	}
 
 	public RobotCat(String name, String description, int mood, int lube, int rust) {
@@ -18,7 +18,7 @@ public class RobotCat extends VirtualPet {
 		this.mood = mood;
 		this.lube = lube;
 		this.rust = rust;
-		this.health = (this.lube - this.rust) + this.mood;
+		this.health = (int) (6 * (.5 * this.lube - .3 * this.rust) + 7 * (.5 * this.mood));
 	}
 
 	public void oil() {
@@ -43,5 +43,10 @@ public class RobotCat extends VirtualPet {
 		}
 		lube--;
 		rust++;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%-15s%-20s%-15s%-15s%-15s%-15s", name, description, mood, lube, rust, health);
 	}
 }

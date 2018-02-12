@@ -47,6 +47,22 @@ public class VirtualPetShelter {
 		}
 	}
 
+	public void waterOrganicCats() {
+		for (VirtualPet name : shelter.values()) {
+			if (name instanceof OrganicCat && !(name instanceof OrganicDog)) {
+				((OrganicCat) name).drink();
+			}
+		}
+	}
+
+	public void waterOrganicDogs() {
+		for (VirtualPet name : shelter.values()) {
+			if (name instanceof OrganicDog) {
+				((OrganicDog) name).drink();
+			}
+		}
+	}
+
 	public void oilRobotCats() {
 		for (VirtualPet name : shelter.values()) {
 			if (name instanceof RobotCat && !(name instanceof RobotDog)) {
@@ -63,6 +79,14 @@ public class VirtualPetShelter {
 		}
 	}
 
+	public void walkDogs() {
+		for (VirtualPet name : shelter.values()) {
+			if (name instanceof Dog) {
+				((Dog) name).walk();
+			}
+		}
+	}
+
 	public void play(String petName) {
 		for (VirtualPet name : shelter.values()) {
 			if (name.getName().equals(petName)) {
@@ -71,14 +95,19 @@ public class VirtualPetShelter {
 		}
 	}
 
-	public void tickAllCreaturesPlusWaste() {
+	public void tickAllCreatures() {
+		for (VirtualPet name : shelter.values()) {
+			name.tick();
+		}
+	}
+
+	public void wasteMaker() {
 		for (VirtualPet name : shelter.values()) {
 			if (name instanceof OrganicCat && !(name instanceof OrganicDog)) {
-				catLitter = ((OrganicCat) name).getPee() + ((OrganicCat) name).getPoop();
+				catLitter += (int) ((((OrganicCat) name).getPee() + ((OrganicCat) name).getPoop()) / 10);
 			} else if (name instanceof OrganicDog) {
-				dogLitter = ((OrganicDog) name).getPee() + ((OrganicDog) name).getPoop();
+				dogLitter += (int) ((((OrganicDog) name).getPee() + ((OrganicDog) name).getPoop()) / 10);
 			}
-			name.tick();
 		}
 	}
 

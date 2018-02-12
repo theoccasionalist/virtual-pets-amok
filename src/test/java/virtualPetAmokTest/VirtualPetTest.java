@@ -23,18 +23,21 @@ public class VirtualPetTest {
 
 	@Test
 	public void shouldReturnOrganicHealth() {
-		int organicCatHealth = phil.getHealth();
-		int organicDogHealth = bill.getHealth();
-		assertEquals(organicCatHealth, 2);
-		assertEquals(organicDogHealth, 2);
+		OrganicCat philly = new OrganicCat("Philly", "");
+		OrganicDog billy = new OrganicDog("Billy", "");
+		int organicCatHealth = philly.getHealth();
+		int organicDogHealth = billy.getHealth();
+		assertThat(organicCatHealth, is(allOf(greaterThan(20), lessThan(51))));
+		assertThat(organicDogHealth, is(allOf(greaterThan(20), lessThan(51))));
 	}
 
-	@Test
 	public void shouldReturnRobotHealth() {
-		int robotCatHealth = dill.getHealth();
-		int robotDogHealth = pill.getHealth();
-		assertEquals(robotCatHealth, 1);
-		assertEquals(robotDogHealth, 1);
+		RobotCat dilly = new RobotCat("Dilly", "");
+		RobotDog pilly = new RobotDog("Pilly", "");
+		int organicCatHealth = dilly.getHealth();
+		int organicDogHealth = pilly.getHealth();
+		assertThat(organicCatHealth, is(allOf(greaterThan(20), lessThan(51))));
+		assertThat(organicDogHealth, is(allOf(greaterThan(20), lessThan(51))));
 	}
 
 	@Test
