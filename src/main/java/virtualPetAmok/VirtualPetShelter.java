@@ -98,11 +98,6 @@ public class VirtualPetShelter {
 	public void tickAllCreatures() {
 		for (VirtualPet name : shelter.values()) {
 			name.tick();
-		}
-	}
-
-	public void wasteMaker() {
-		for (VirtualPet name : shelter.values()) {
 			if (name instanceof OrganicCat && !(name instanceof OrganicDog)) {
 				catLitter += (int) ((((OrganicCat) name).getPee() + ((OrganicCat) name).getPoop()) / 10);
 			} else if (name instanceof OrganicDog) {

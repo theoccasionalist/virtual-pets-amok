@@ -1,5 +1,6 @@
 package virtualPetAmok;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class VirtualPetShelterApp {
@@ -7,23 +8,46 @@ public class VirtualPetShelterApp {
 
 		OrganicCat creature1 = new OrganicCat("Phil", "Organic Cat");
 		OrganicDog creature2 = new OrganicDog("Bill", "Organic Dog");
-		RobotCat creature3 = new RobotCat("Robo Phil", "Robot Cat");
-		RobotDog creature4 = new RobotDog("Robo Bill", "Robot Dog");
+		OrganicCat creature3 = new OrganicCat("Jill", "Organic Cat");
+		OrganicDog creature4 = new OrganicDog("Gill", "Organic Dog");
+		RobotCat creature5 = new RobotCat("Robo Phil", "Robot Cat");
+		RobotDog creature6 = new RobotDog("Robo Bill", "Robot Dog");
+		RobotCat creature7 = new RobotCat("Robo Jill", "Robot Cat");
+		RobotDog creature8 = new RobotDog("Robo Gill", "Robot Dog");
 
 		VirtualPetShelter shelter = new VirtualPetShelter();
 		shelter.addCreature(creature1);
 		shelter.addCreature(creature2);
 		shelter.addCreature(creature3);
 		shelter.addCreature(creature4);
+		shelter.addCreature(creature5);
+		shelter.addCreature(creature6);
+		shelter.addCreature(creature7);
+		shelter.addCreature(creature8);
 
 		System.out.println("Welcome to this virtual pet application.\nWe have fun and games...and robots.");
-
-		Scanner input = new Scanner(System.in);
-		input.nextLine();
+		System.out.println("\nHere's how it goes:\n");
+		System.out.println("\tif Total Health drops below 15, death.");
+		System.out.println("\tif Mood drops below 1, death.");
+		System.out.println("\tif Cat Litter Filth or Dog Pen Filth exceeds 15, DEATH TO EVEYONE!\n");
+		System.out.println("Mood is capricious and health precarious. Enjoy!");
 
 		while (true) {
 			shelter.tickAllCreatures();
-			shelter.wasteMaker();
+			Iterator<VirtualPet> toRemove = shelter.individualPets().iterator();
+			while (toRemove.hasNext()) {
+				VirtualPet value = toRemove.next();
+				if (value.getHealth() <= 15) {
+					System.out.println("Update:\n" + value.getName() + " died from physical malnourishment.");
+				} else if (value.getMood() <= 1) {
+					System.out.println("Update:\n" + value.getName() + " died from emotional malnourishment.");
+					toRemove.remove();
+				} else if (shelter.getCatLitter() >= 15 || shelter.getDogLitter() >= 15) {
+					System.out.println("FILTH PLAUGE:\n" + value.getName() + " died from filth.");
+					toRemove.remove();
+				}
+			}
+
 			System.out.println("\nOrganics:\n");
 			String formatOrganics = String.format("%-15s%-20s%-15s%-15s%-15s%-15s%-15s%-15s%-15s", "Name", "Type",
 					"Fitness", "Hunger", "Mood", "Pee", "Poop", "Thirst", "Total Health");
@@ -60,8 +84,8 @@ public class VirtualPetShelterApp {
 			System.out.println("8: Leave an animal with us");
 			System.out.println("9: Adopt an animal from us");
 			System.out.println("10: Leave once and for all");
+			Scanner input = new Scanner(System.in);
 			String option = input.nextLine();
-
 			if (option.equalsIgnoreCase("1") || option.equalsIgnoreCase("feed")) {
 				System.out.println("Press 1 to feed the cats or press 2 to feed the dogs.");
 				String suboption = input.nextLine();
@@ -92,13 +116,14 @@ public class VirtualPetShelterApp {
 					shelter.waterOrganicDogs();
 					System.out.println("Organic dogs watered");
 					input.nextLine();
+					continue;
 				} else {
 					System.out.println("Not an option.  You have wasted the pets' time. Shame.");
 					input.nextLine();
 					continue;
 				}
 			} else if (option.equalsIgnoreCase("3") || option.equalsIgnoreCase("lube")) {
-				System.out.println("Press 1 to lube the cats or press 2 to lube the dogs.");
+				System.out.println("Press 1 to oil the cats or press 2 to oil the dogs.");
 				String suboption = input.nextLine();
 				if (suboption.equalsIgnoreCase("1")) {
 					shelter.oilRobotCats();
@@ -109,6 +134,7 @@ public class VirtualPetShelterApp {
 					shelter.oilRobotDogs();
 					System.out.println("Robotic dogs oiled.");
 					input.nextLine();
+					continue;
 				} else {
 					System.out.println("Not an option.  You have wasted the pets' time. Shame.");
 					input.nextLine();
